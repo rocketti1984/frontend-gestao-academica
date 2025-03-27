@@ -1,32 +1,18 @@
-import React, { useState } from 'react';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
-import Notas from './components/Notas';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Notas from "./pages/Notas";
 
 function App() {
-  const [view, setView] = useState("login");
-
-  const handleLogin = () => setView("dashboard");
-  const handleVerNotas = () => setView("notas");
-  const handleVoltar = () => setView("dashboard");
-
   return (
-    <div style={{ padding: "20px" }}>
-      {view === "login" && <Login onLogin={handleLogin} />}
-      {view === "dashboard" && (
-        <div>
-          <Dashboard />
-          <button onClick={handleVerNotas}>Ver Notas</button>
-          <button onClick={() => setView("login")}>Sair</button>
-        </div>
-      )}
-      {view === "notas" && (
-        <div>
-          <Notas />
-          <button onClick={handleVoltar}>Voltar ao Dashboard</button>
-        </div>
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/notas" element={<Notas />} />
+      </Routes>
+    </Router>
   );
 }
 
